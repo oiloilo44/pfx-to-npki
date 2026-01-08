@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# Sensitive Certificates & Keys (IMPORTANT)
+*.pfx
+*.p12
+*.key
+*.der
+NPKI/
+
+# Temporary/Debug files
+dump_*.txt
+*.bin
+*.log
+
+# IDE settings
+.vscode/
+.idea/
