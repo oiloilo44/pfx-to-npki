@@ -35,7 +35,7 @@ def extract_vid_via_openssl(pfx_path, password, openssl_path):
         if result.returncode != 0:
             print(f"[Warning] OpenSSL 실행 상태: {result.returncode}")
             if "Mac verify error" in result.stderr:
-                print(" -> ❌ 비밀번호가 올바르지 않은 것 같습니다.")
+                print(" -> 비밀번호가 올바르지 않은 것 같습니다.")
                 
         dump_data = result.stdout
         vid_oid = "1.2.410.200004.10.1.1.3"
@@ -86,14 +86,14 @@ def convert_pfx_to_npki(pfx_path, password):
     # 1. OpenSSL VID Extraction
     openssl_bin = find_openssl()
     if not openssl_bin:
-        print("❌ [Error] 'openssl_bin' 폴더를 찾을 수 없습니다.")
+        print("[Error] 'openssl_bin' 폴더를 찾을 수 없습니다.")
         input("엔터를 누르면 종료합니다...")
         return
 
     vid_bytes = extract_vid_via_openssl(pfx_path, password, openssl_bin)
     
     if not vid_bytes:
-        print("\n⚠️ [Warning] VID 추출 실패.")
+        print("\n[Warning] VID 추출 실패.")
         choice = input("VID 없이 진행하시겠습니까? (y/n): ")
         if choice.lower() != 'y': return
 
@@ -148,12 +148,12 @@ def convert_pfx_to_npki(pfx_path, password):
         
         # Validation
         if vid_bytes and len(enc_der) >= 1300:
-            print("\n🎉 [Success] 모든 변환 및 NPKI 폴더 생성이 완료되었습니다!")
+            print("\n[Success] 모든 변환 및 NPKI 폴더 생성이 완료되었습니다.")
         else:
-            print(f"\n✅ [Done] 변환 완료 (주의: VID 확인 필요)")
+            print("\n[Done] 변환 완료 (주의: VID 확인 필요)")
 
     except Exception as e:
-        print(f"\n❌ [Fatal Error] 변환 실패: {e}")
+        print(f"\n[Fatal Error] 변환 실패: {e}")
     
     input("\n엔터를 누르면 종료합니다...")
 
@@ -203,13 +203,13 @@ def main():
     if not pfx_path:
         if auto_pfx: pfx_path = auto_pfx
         else:
-            print("❌ 파일을 찾을 수 없습니다.")
+            print("파일을 찾을 수 없습니다.")
             input("종료..."); return
             
     pfx_path = pfx_path.strip('"')
     
     if not os.path.isfile(pfx_path):
-        print(f"❌ 파일이 존재하지 않습니다: {pfx_path}")
+        print(f"파일이 존재하지 않습니다: {pfx_path}")
         input("종료..."); return
     
     # 비밀번호 입력 (* 표시)
